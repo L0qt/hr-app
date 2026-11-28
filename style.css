@@ -1,91 +1,37 @@
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
+.filters {
+    margin-bottom: 15px;
 }
 
-.top {
-    background: #34495e;
-    color: white;
-    padding: 12px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.top span {
-    font-size: 18px;
-}
-
-.content {
-    padding: 20px;
-}
-
-table {
-    width: 100%;
-    background: white;
-    border-collapse: collapse;
-}
-
-th {
-    background: #ecf0f1;
-    text-align: left;
-}
-
-th, td {
-    padding: 8px;
-    border-bottom: 1px solid #eee;
-    font-size: 14px;
-}
-
-.empty {
-    text-align: center;
-    color: #888;
-}
-
-.btn {
-    padding: 6px 12px;
+.filters input,
+.filters select {
+    padding: 6px;
+    margin-right: 5px;
     border: 1px solid #ccc;
-    background: white;
-    color: #222;
-    text-decoration: none;
-    font-size: 14px;
-    cursor: pointer;
-    display: inline-block;
 }
 
-.btn.blue {
-    background: #3498db;
-    color: white;
-    border-color: #3498db;
+tr.fired td {
+    color: #999;
+    background: #fafafa;
 }
 
-.btn.small {
-    padding: 3px 8px;
+.badge {
+    padding: 2px 8px;
+    border-radius: 10px;
     font-size: 12px;
 }
 
-.form label {
-    display: block;
-    margin-bottom: 10px;
-    font-size: 14px;
+.badge.green {
+    background: #d4f5dc;
+    color: #1d7a41;
 }
 
-.form input {
-    display: block;
-    width: 400px;
-    padding: 6px;
-    margin-top: 3px;
-    border: 1px solid #ccc;
-}
-
-.form-buttons {
-    margin-top: 15px;
-}
-
-.error {
+.badge.red {
     background: #fadbd8;
     color: #a93226;
-    padding: 10px;
-    width: 400px;
+}
+
+.btn.red {
+    background: #e74c3c;
+    color: white;
+    border-color: #e74c3c;
 }
