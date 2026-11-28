@@ -127,10 +127,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             <input type="date" name="birth_date" value="<?php echo h($birth_date); ?>">
         </label>
         <label>Паспорт
-            <input type="text" name="passport" value="<?php echo h($passport); ?>" placeholder="0000 000000" maxlength="11">
+             <input type="text" id="passport" name="passport" value="<?php echo h($passport); ?>" placeholder="0000 000000" maxlength="11">
         </label>
         <label>Телефон
-            <input type="text" name="phone" value="<?php echo h($phone); ?>" placeholder="+7 (999) 123-45-67" maxlength="18">
+            <input type="text" id="phone" name="phone" value="<?php echo h($phone); ?>" placeholder="+7 (999) 123-45-67" maxlength="18">
         </label>
         <label>Адрес
             <input type="text" name="address" value="<?php echo h($address); ?>">
@@ -152,7 +152,36 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             <button class="btn blue" type="submit">Сохранить</button>
             <a class="btn" href="index.php">Отмена</a>
         </div>
-    </form>
+       </form>
 </div>
+
+<script>
+// маска паспорта
+var passField = document.getElementById("passport");
+passField.oninput = function() {
+    var v = this.value.replace(/\D/g, "");
+    if (v.length > 4) {
+        this.value = v.substr(0, 4) + " " + v.substr(4, 6);
+    } else {
+        this.value = v;
+    }
+};
+
+// маска телефона
+var phoneField = document.getElementById("phone");
+phoneField.oninput = function() {
+    var v = this.value.replace(/\D/g, "");
+    if (v.charAt(0) == "7" || v.charAt(0) == "8") {
+        v = v.substr(1);
+    }
+    v = v.substr(0, 10);
+    var out = "+7";
+    if (v.length > 0) out += " (" + v.substr(0, 3);
+    if (v.length > 3) out += ") " + v.substr(3, 3);
+    if (v.length > 6) out += "-" + v.substr(6, 2);
+    if (v.length > 8) out += "-" + v.substr(8, 2);
+    this.value = out;
+};
+</script>
 </body>
 </html>
