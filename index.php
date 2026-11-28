@@ -31,7 +31,7 @@ if ($pos != "") {
     $sql = $sql . " AND position = '$p'";
 }
 
-$sql = $sql . " ORDER BY full_name ASC";
+$sql = $sql . " ORDER BY is_fired ASC, full_name ASC";
 $result = mysqli_query($link, $sql);
 ?>
 <!doctype html>
@@ -96,14 +96,21 @@ $result = mysqli_query($link, $sql);
             <th>Должность</th>
             <th>Зарплата</th>
             <th>Дата приёма</th>
+            <th>Статус</th>
+            <th></th>
         </tr>
         <?php
         if (mysqli_num_rows($result) == 0) {
-            echo "<tr><td colspan='9' class='empty'>Ничего не найдено</td></tr>";
+            echo "<tr><td colspan='11' class='empty'>Ничего не найдено</td></tr>";
         }
 
         while ($e = mysqli_fetch_assoc($result)) {
-            echo "<tr>";
+            if ($e['is_fired'] == 1) {
+                echo "<tr class='fired'>";
+            } else {
+                echo "<tr>";
+            }
+
             echo "<td>" . h($e['full_name']) . "</td>";
             echo "<td>" . h($e['birth_date']) . "</td>";
             echo "<td>" . h($e['passport']) . "</td>";
@@ -113,6 +120,25 @@ $result = mysqli_query($link, $sql);
             echo "<td>" . h($e['position']) . "</td>";
             echo "<td>" . number_format($e['salary'], 0, ',', ' ') . " руб.</td>";
             echo "<td>" . h($e['hire_date']) . "</td>";
+
+            if ($e['is_fired'] == 1) {
+                echo "<td><span class='badge red'>Уволен</span></td>";
+            } else {
+                echo "<td><span class='badge green'>Работает</span></td>";
+            }
+
+            echo "<td>";
+            if ($e['is_fired'] == 0) {
+                echo "<a class='btn small' href='form.php?id=" . $e['id'] . "'>Изменить</a> ";
+                echo "<form method='post' action='fire.php' style='display:inline' onsubmit='return confirm(\"Уволить?\")'>";
+                echo "<input type='hidden' name='id' value='" . $e['id'] . "'>";
+                echo "<button class='btn small red' type='submit'>Уволить</button>";
+                echo "</form>";
+            } else {
+                echo "—";
+            }
+            echo "</td>";
+
             echo "</tr>";
         }
         ?>
