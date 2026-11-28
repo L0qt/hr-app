@@ -43,13 +43,13 @@ $result = mysqli_query($link, $sql);
 </head>
 <body>
 <div class="top">
-    <span>Сотрудники</span>
-    <a class="btn blue" href="form.php">Добавить</a>
+    <span>Учет сотрудников</span>
+    <a class="btn blue" href="form.php">+ Добавить сотрудника</a>
 </div>
 
 <div class="content">
     <form class="filters" method="get">
-        <input type="text" name="search" placeholder="Поиск по ФИО" value="<?php echo h($search); ?>">
+        <input type="text" name="search" placeholder="Поиск по ФИО..." value="<?php echo h($search); ?>">
 
         <select name="department">
             <option value="">Все отделы</option>
@@ -81,24 +81,27 @@ $result = mysqli_query($link, $sql);
             ?>
         </select>
 
-        <button class="btn" type="submit">Применить</button>
+        <button class="btn blue" type="submit">Применить</button>
         <a class="btn" href="index.php">Сбросить</a>
     </form>
 
     <table>
-        <tr>
-            <th>ФИО</th>
-            <th>Дата рождения</th>
-            <th>Паспорт</th>
-            <th>Телефон</th>
-            <th>Адрес</th>
-            <th>Отдел</th>
-            <th>Должность</th>
-            <th>Зарплата</th>
-            <th>Дата приёма</th>
-            <th>Статус</th>
-            <th></th>
-        </tr>
+        <thead>
+            <tr>
+                <th>ФИО</th>
+                <th>Дата рожд.</th>
+                <th>Паспорт</th>
+                <th>Телефон</th>
+                <th>Адрес</th>
+                <th>Отдел</th>
+                <th>Должность</th>
+                <th>Зарплата</th>
+                <th>Дата приема</th>
+                <th>Статус</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
         <?php
         if (mysqli_num_rows($result) == 0) {
             echo "<tr><td colspan='11' class='empty'>Ничего не найдено</td></tr>";
@@ -111,14 +114,14 @@ $result = mysqli_query($link, $sql);
                 echo "<tr>";
             }
 
-            echo "<td>" . h($e['full_name']) . "</td>";
+            echo "<td><b>" . h($e['full_name']) . "</b></td>";
             echo "<td>" . h($e['birth_date']) . "</td>";
             echo "<td>" . h($e['passport']) . "</td>";
             echo "<td>" . h($e['phone']) . "</td>";
             echo "<td>" . h($e['address']) . "</td>";
             echo "<td>" . h($e['department']) . "</td>";
             echo "<td>" . h($e['position']) . "</td>";
-            echo "<td>" . number_format($e['salary'], 0, ',', ' ') . " руб.</td>";
+            echo "<td>" . number_format($e['salary'], 0, ',', ' ') . " ₽</td>";
             echo "<td>" . h($e['hire_date']) . "</td>";
 
             if ($e['is_fired'] == 1) {
@@ -127,21 +130,22 @@ $result = mysqli_query($link, $sql);
                 echo "<td><span class='badge green'>Работает</span></td>";
             }
 
-            echo "<td>";
+            echo "<td style='white-space: nowrap;'>";
             if ($e['is_fired'] == 0) {
                 echo "<a class='btn small' href='form.php?id=" . $e['id'] . "'>Изменить</a> ";
-                echo "<form method='post' action='fire.php' style='display:inline' onsubmit='return confirm(\"Уволить?\")'>";
+                echo "<form method='post' action='fire.php' style='display:inline' onsubmit='return confirm(\"Вы уверены, что хотите уволить?\")'>";
                 echo "<input type='hidden' name='id' value='" . $e['id'] . "'>";
                 echo "<button class='btn small red' type='submit'>Уволить</button>";
                 echo "</form>";
             } else {
-                echo "—";
+                echo "<span style='color: #94a3b8;'>—</span>";
             }
             echo "</td>";
 
             echo "</tr>";
         }
         ?>
+        </tbody>
     </table>
 </div>
 </body>
