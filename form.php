@@ -111,48 +111,62 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 <body>
 <div class="top">
     <span><?php if ($id > 0) echo "Редактирование"; else echo "Новый сотрудник"; ?></span>
-    <a class="btn" href="index.php">Назад</a>
+    <a class="btn" href="index.php">← Назад к списку</a>
 </div>
 
 <div class="content">
     <?php if ($error != "") echo "<p class='error'>" . h($error) . "</p>"; ?>
 
-    <form method="post" class="form">
+    <form method="post" class="form-card">
         <input type="hidden" name="id" value="<?php echo $id; ?>">
 
-        <label>ФИО
-            <input type="text" name="full_name" value="<?php echo h($full_name); ?>">
-        </label>
-        <label>Дата рождения
-            <input type="date" name="birth_date" value="<?php echo h($birth_date); ?>">
-        </label>
-        <label>Паспорт
-             <input type="text" id="passport" name="passport" value="<?php echo h($passport); ?>" placeholder="0000 000000" maxlength="11">
-        </label>
-        <label>Телефон
-            <input type="text" id="phone" name="phone" value="<?php echo h($phone); ?>" placeholder="+7 (999) 123-45-67" maxlength="18">
-        </label>
-        <label>Адрес
-            <input type="text" name="address" value="<?php echo h($address); ?>">
-        </label>
-        <label>Отдел
-            <input type="text" name="department" value="<?php echo h($department); ?>">
-        </label>
-        <label>Должность
-            <input type="text" name="position" value="<?php echo h($position); ?>">
-        </label>
-        <label>Зарплата
-            <input type="number" name="salary" value="<?php echo h($salary); ?>">
-        </label>
-        <label>Дата приёма
-            <input type="date" name="hire_date" value="<?php echo h($hire_date); ?>">
-        </label>
+        <div class="form-row">
+            <label>ФИО
+                <input type="text" name="full_name" value="<?php echo h($full_name); ?>">
+            </label>
+            <label>Дата рождения
+                <input type="date" name="birth_date" value="<?php echo h($birth_date); ?>">
+            </label>
+        </div>
+
+        <div class="form-row">
+            <label>Паспорт
+                <input type="text" id="passport" name="passport" value="<?php echo h($passport); ?>" placeholder="0000 000000" maxlength="11">
+            </label>
+            <label>Телефон
+                <input type="text" id="phone" name="phone" value="<?php echo h($phone); ?>" placeholder="+7 (999) 123-45-67" maxlength="18">
+            </label>
+        </div>
+
+        <div class="form-row">
+            <label>Адрес проживания
+                <input type="text" name="address" value="<?php echo h($address); ?>">
+            </label>
+        </div>
+
+        <div class="form-row">
+            <label>Отдел
+                <input type="text" name="department" value="<?php echo h($department); ?>">
+            </label>
+            <label>Должность
+                <input type="text" name="position" value="<?php echo h($position); ?>">
+            </label>
+        </div>
+
+        <div class="form-row">
+            <label>Зарплата (₽)
+                <input type="number" name="salary" value="<?php echo h($salary); ?>">
+            </label>
+            <label>Дата приема
+                <input type="date" name="hire_date" value="<?php echo h($hire_date); ?>">
+            </label>
+        </div>
 
         <div class="form-buttons">
             <button class="btn blue" type="submit">Сохранить</button>
             <a class="btn" href="index.php">Отмена</a>
         </div>
-       </form>
+    </form>
 </div>
 
 <script>
